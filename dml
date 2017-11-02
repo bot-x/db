@@ -1,0 +1,487 @@
+/*****************************************************************
+PRACTICAL NO 03
+Problem Statement :- Design at least 10 SQL queries for suitable database application using SQL DML statements:
+Insert, Select, Update, Delete with operators, functions, and set operator.
+Student Name :- 		Roll_No :- 
+Class :- TE-B		BATCH :- TEB-	Date :-__/__/____
+*******************************************************************/
+//create Employee Table 
+QUERY : mysql> create database prac3;
+OUTPUT: Query OK, 1 row affected (0.07 sec)
+
+QUERY : mysql> create table Employee(
+    	    -> Emp_no integer(3),
+    	    -> Emp_name varchar(20),
+    	    -> Joining_date date,
+    	    -> Salary integer(6)
+    	    -> );
+OUTPUT: Query OK, 0 rows affected (0.41 sec)
+
+1.INSERTING RECORD INTO TABLE :-
+	QUERY : mysql> insert into Employee values(101,'Rohit','1995-11-02',12000),(102,'Salman','1999-01-03',20000),		(103,'Alpesh','2015-05-07',30000),(104,'Pramod','2000-11-12',8900),(105,'Pramod','1999-02-12',8000),(106,'Aadesh','2012-12-12',25000);
+	OUTPUT: Query OK, 6 rows affected (0.06 sec)
+		Records: 6  Duplicates: 0  Warnings: 0
+	QUERY : mysql> select *from Employee;
+	OUTPUT:	
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    101 | Rohit    | 1995-11-02   |  12000 |
+		|    102 | Salman   | 1999-01-03   |  20000 |
+		|    103 | Alpesh   | 2015-05-07   |  30000 |
+		|    104 | Pramod   | 2000-11-12   |   8900 |
+		|    105 | Pramod   | 1999-02-12   |   8000 |
+		|    106 | Aadesh   | 2012-12-12   |  25000 |
+		+--------+----------+--------------+--------+
+		6 rows in set (0.00 sec)
+
+	QUERY : mysql> insert into Employee(Emp_no,Emp_name,Joining_date) values(107,'Mangesh','2017-03-15'),(108,'Kunal','2017-05-04');
+	OUTPUT: Query OK, 2 rows affected (0.01 sec)
+		Records: 2  Duplicates: 0  Warnings: 0
+	QUERY : mysql> select *from Employee;
+	OUTPUT:	
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    101 | Rohit    | 1995-11-02   |  12000 |
+		|    102 | Salman     | 1999-01-03   |  20000 |
+		|    103 | Alpesh    | 2015-05-07   |  30000 |
+		|    104 | Pramod    | 2000-11-12   |   8900 |
+		|    105 | Pramod    | 1999-02-12   |   8000 |
+		|    106 | Aadesh   | 2012-12-12   |  25000 |
+		|    107 | Mangesh    | 2017-03-15   |   NULL |
+		|    108 | Kunal   | 2017-05-04   |   NULL |
+		+--------+----------+--------------+--------+
+		8 rows in set (0.00 sec)
+
+
+2.RETRIEVE DATA FROM TABLES :-
+	QUERY : mysql> select Emp_no,Emp_name from Employee;
+	OUTPUT:
+		+--------+----------+
+		| Emp_no | Emp_name |
+		+--------+----------+
+		|    101 | Rohit    |
+		|    102 | Salman     |
+		|    103 | Alpesh    |
+		|    104 | Pramod    |
+		|    105 | Pramod    |
+		|    106 | Aadesh   |
+		|    107 | Mangesh    |
+		|    108 | Kunal   |
+		+--------+----------+
+		8 rows in set (0.00 sec)
+
+	QUERY : mysql> select *from Employee where Salary >8000;
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    101 | Rohit    | 1995-11-02   |  12000 |
+		|    102 | Salman     | 1999-01-03   |  20000 |
+		|    103 | Alpesh    | 2015-05-07   |  30000 |
+		|    104 | Pramod    | 2000-11-12   |   8900 |
+		|    106 | Aadesh   | 2012-12-12   |  25000 |
+		+--------+----------+--------------+--------+
+		5 rows in set (0.03 sec)
+
+	QUERY : mysql> select *from Employee where Emp_name='Alpesh';
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    103 | Alpesh    | 2015-05-07   |  30000 |
+		+--------+----------+--------------+--------+
+		1 row in set (0.00 sec)
+
+	QUERY : mysql> select distinct(Salary) from Employee;
+	OUTPUT:
+		+--------+
+		| Salary |
+		+--------+
+		|  12000 |
+		|  20000 |
+		|  30000 |
+		|   8900 |
+		|   8000 |
+		|  25000 |
+		|   NULL |
+		+--------+
+		7 rows in set (0.00 sec)
+
+	QUERY : mysql> select *from Employee order by Joining_date;
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    101 | Rohit    | 1995-11-02   |  12000 |
+		|    102 | Salman     | 1999-01-03   |  20000 |
+		|    105 | Pramod    | 1999-02-12   |   8000 |
+		|    104 | Pramod    | 2000-11-12   |   8900 |
+		|    106 | Aadesh   | 2012-12-12   |  25000 |
+		|    103 | Alpesh    | 2015-05-07   |  30000 |
+		|    107 | Mangesh    | 2017-03-15   |   NULL |
+		|    108 | Kunal   | 2017-05-04   |   NULL |
+		+--------+----------+--------------+--------+
+		8 rows in set (0.04 sec)
+
+	QUERY : mysql> select *from Employee order by Joining_date desc;
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    108 | Kunal   | 2017-05-04   |   NULL |
+		|    107 | Mangesh    | 2017-03-15   |   NULL |
+		|    103 | Alpesh    | 2015-05-07   |  30000 |
+		|    106 | Aadesh   | 2012-12-12   |  25000 |
+		|    104 | Pramod    | 2000-11-12   |   8900 |
+		|    105 | Pramod    | 1999-02-12   |   8000 |
+		|    102 | Salman     | 1999-01-03   |  20000 |
+		|    101 | Rohit    | 1995-11-02   |  12000 |
+		+--------+----------+--------------+--------+
+		8 rows in set (0.01 sec)
+
+
+3.MODIFY DATA IN TABLES :-
+	QUERY : mysql> update Employee set Salary=50000 where Emp_no=108;
+	OUTPUT: Query OK, 1 row affected (0.03 sec)
+		Rows matched: 1  Changed: 1  Warnings: 0
+	QUERY : mysql> select *from Employee;
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    101 | Rohit    | 1995-11-02   |  12000 |
+		|    102 | Salman     | 1999-01-03   |  20000 |
+		|    103 | Alpesh    | 2015-05-07   |  30000 |
+		|    104 | Pramod    | 2000-11-12   |   8900 |
+		|    105 | Pramod    | 1999-02-12   |   8000 |
+		|    106 | Aadesh   | 2012-12-12   |  25000 |
+		|    107 | Mangesh    | 2017-03-15   |   NULL |
+		|    108 | Kunal   | 2017-05-04   |  50000 |
+		+--------+----------+--------------+--------+
+		8 rows in set (0.00 sec)
+
+	QUERY : mysql> update Employee set Joining_date='2013-09-05' where Emp_no=105;
+	OUTPUT: Query OK, 1 row affected (0.01 sec)
+		Rows matched: 1  Changed: 1  Warnings: 0
+	QUERY : mysql> select *from Employee;
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    101 | Rohit    | 1995-11-02   |  12000 |
+		|    102 | Salman     | 1999-01-03   |  20000 |
+		|    103 | Alpesh    | 2015-05-07   |  30000 |
+		|    104 | Pramod    | 2000-11-12   |   8900 |
+		|    105 | Pramod    | 2013-09-05   |   8000 |
+		|    106 | Aadesh   | 2012-12-12   |  25000 |
+		|    107 | Mangesh    | 2017-03-15   |   NULL |
+		|    108 | Kunal   | 2017-05-04   |  50000 |
+		+--------+----------+--------------+--------+
+		8 rows in set (0.00 sec)
+
+
+4.REMOVE RECORDS FROM TABLES :-
+	QUERY : mysql> delete from Employee where Emp_no=107;
+	OUTPUT: Query OK, 1 row affected (0.00 sec)
+	QUERY : mysql> select *from Employee;
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    101 | Rohit    | 1995-11-02   |  12000 |
+		|    102 | Salman     | 1999-01-03   |  20000 |
+		|    103 | Alpesh    | 2015-05-07   |  30000 |
+		|    104 | Pramod    | 2000-11-12   |   8900 |
+		|    105 | Pramod    | 2013-09-05   |   8000 |
+		|    106 | Aadesh   | 2012-12-12   |  25000 |
+		|    108 | Kunal   | 2017-05-04   |  50000 |
+		+--------+----------+--------------+--------+
+		7 rows in set (0.00 sec)
+
+
+5.BETWEEN,IN,LIKE OPERATORS WITH SELECT STATEMENT :-
+	5.1.BETWEEN 
+	QUERY : mysql> select *from Employee where Salary between 10000 and 30000;
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    101 | Rohit    | 1995-11-02   |  12000 |
+		|    102 | Salman     | 1999-01-03   |  20000 |
+		|    103 | Alpesh    | 2015-05-07   |  30000 |
+		|    106 | Aadesh   | 2012-12-12   |  25000 |
+		+--------+----------+--------------+--------+
+		4 rows in set (0.00 sec)
+
+	QUERY : mysql> select *from Employee where Salary not between 10000 and 30000;
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    104 | Pramod    | 2000-11-12   |   8900 |
+		|    105 | Pramod    | 2013-09-05   |   8000 |
+		|    108 | Kunal   | 2017-05-04   |  50000 |
+		+--------+----------+--------------+--------+
+		3 rows in set (0.00 sec)
+
+	5.2.IN
+	QUERY : mysql> select *from Employee where Salary in(8000,20000);
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    102 | Salman     | 1999-01-03   |  20000 |
+		|    105 | Pramod    | 2013-09-05   |   8000 |
+		+--------+----------+--------------+--------+
+		2 rows in set (0.00 sec)
+
+	QUERY : mysql> select *from Employee where Salary not in(8000,20000);
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    101 | Rohit    | 1995-11-02   |  12000 |
+		|    103 | Alpesh    | 2015-05-07   |  30000 |
+		|    104 | Pramod    | 2000-11-12   |   8900 |
+		|    106 | Aadesh   | 2012-12-12   |  25000 |
+		|    108 | Kunal   | 2017-05-04   |  50000 |
+		+--------+----------+--------------+--------+
+		5 rows in set (0.00 sec)
+
+	5.3.LIKE
+	QUERY : mysql> select *from Employee where Emp_name like 'M%';
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    104 | Pramod    | 2000-11-12   |   8900 |
+		|    108 | Kunal   | 2017-05-04   |  50000 |
+		+--------+----------+--------------+--------+
+		2 rows in set (0.00 sec)
+	
+	QUERY : mysql> select *from Employee where Emp_name not like 'M%';
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    101 | Rohit    | 1995-11-02   |  12000 |
+		|    102 | Salman     | 1999-01-03   |  20000 |
+		|    103 | Alpesh    | 2015-05-07   |  30000 |
+		|    105 | Pramod    | 2013-09-05   |   8000 |
+		|    106 | Aadesh   | 2012-12-12   |  25000 |
+		+--------+----------+--------------+--------+
+		5 rows in set (0.02 sec)
+
+
+6.AGGREGATE FUNCTIONS :-
+	6.1.MIN() 
+	QUERY : mysql> select *from Employee where Salary=(select min(Salary) from Employee);
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    105 | Pramod    | 2013-09-05   |   8000 |
+		+--------+----------+--------------+--------+
+		1 row in set (0.04 sec)
+
+	6.2.MAX()
+	QUERY :  mysql> select *from Employee where Salary=(select max(Salary) from Employee);
+	OUTPUT:
+		+--------+----------+--------------+--------+
+		| Emp_no | Emp_name | Joining_date | Salary |
+		+--------+----------+--------------+--------+
+		|    108 | Kunal   | 2017-05-04   |  50000 |
+		+--------+----------+--------------+--------+
+		1 row in set (0.01 sec)
+	
+	6.3.COUNT()
+	QUERY : mysql> select count(*) from Employee where Joining_date like '2015%';
+	OUTPUT:
+		+----------+
+		| count(*) |
+		+----------+
+		|        1 |
+		+----------+
+		1 row in set, 1 warning (0.00 sec)
+
+	6.4.LCASE()
+	QUERY : mysql> select lcase(Emp_name) EmployeeName from Employee;
+	OUTPUT:
+		+--------------+
+		| EmployeeName |
+		+--------------+
+		| Rohit        |
+		| Salman         |
+		| Alpesh        |
+		| Pramod        |
+		| Pramod        |
+		| Aadesh       |
+		| Kunal       |
+		+--------------+
+		7 rows in set (0.00 sec)
+
+	6.5.UCASE()
+	QUERY : select ucase(Emp_name) EmployeeName from Employee;
+	OUTPUT:
+		+--------------+
+		| EmployeeName |
+		+--------------+
+		| Rohit        |
+		| Salman         |
+		| Alpesh        |
+		| Pramod        |
+		| Pramod        |
+		| Aadesh       |
+		| Kunal       |
+		+--------------+
+		7 rows in set (0.00 sec)
+
+7.SET OPERATORS :-
+//product-details table
+QUERY : mysql> create table product_details(
+   	    -> product_id int(4),
+    	    -> product_name varchar(10),
+    	    -> quantity int,
+    	    -> price int
+    	    -> );
+OUTPUT: Query OK, 0 rows affected (0.36 sec)
+
+QUERY : mysql> insert into product_details values(1221,'Laptop',110,900);
+OUTPUT: Query OK, 1 row affected (0.01 sec)
+
+QUERY : mysql> insert into product_details values(1222,'Watch',210,3900);
+OUTPUT: Query OK, 1 row affected (0.00 sec)
+
+QUERY : mysql> insert into product_details values(1223,'DVD',1100,1900);
+OUTPUT: Query OK, 1 row affected (0.00 sec)
+
+QUERY : mysql> insert into product_details values(1224,'speaker',600,1300);
+OUTPUT:Query OK, 1 row affected (0.01 sec)
+
+QUERY : mysql> insert into product_details values(1225,'mouse',900,1000);
+OUTPUT: Query OK, 1 row affected (0.32 sec)
+
+QUERY : mysql> insert into product_details values(1226,'CPU',50,10000);
+OUTPUT: Query OK, 1 row affected (0.01 sec)
+
+QUERY : mysql> select *from product_details;
+OUTPUT:	
+	+------------+--------------+----------+-------+
+	| product_id | product_name | quantity | price |
+	+------------+--------------+----------+-------+
+	|       1221 | Laptop      |      110 |   900 |
+	|       1222 | Watch       |      210 |  3900 |
+	|       1223 | DVD         |     1100 |  1900 |
+	|       1224 | speaker     |      600 |  1300 |
+	|       1225 | mouse       |      900 |  1000 |
+	|       1226 | CPU         |       50 | 10000 |
+	+------------+--------------+----------+-------+
+	6 rows in set (0.00 sec)
+
+//sales-details table
+QUERY : mysql> create table sales_details(
+    	    -> sale_no int,
+   	    -> product_id int(4),
+   	    -> quantity int,
+    	    -> price int(5),
+    	    -> customer_name varchar(15)
+    	    -> );
+OUTPUT: Query OK, 0 rows affected (0.00 sec)
+
+QUERY : mysql> insert into sales_details values(2001,1224,20,25000,'Rohit'),(2002,1221,10,9000,'madav'),(2003,1222,9,35100,'Salman'),(2004,1226,2,20000,'AAdesh');
+OUTPUT: Query OK, 4 rows affected (0.01 sec)
+	Records: 4  Duplicates: 0  Warnings: 0
+
+QUERY : mysql> insert into sales_details values(2005,1227,12,2300,'Alpesh'),(2006,1229,40,400000,'saurabh');
+OUTPUT: Query OK, 2 rows affected (0.01 sec)
+	Records: 2  Duplicates: 0  Warnings: 0
+
+QUERY : mysql> select *from sales_details;
+OUTPUT:
++---------+------------+----------+--------+---------------+
+| sale_no | product_id | quantity | price  | customer_name |
++---------+------------+----------+--------+---------------+
+|    2001 |       1224 |       20 |  25000 | Rohit      |
+|    2002 |       1221 |       10 |   9000 | madav         |
+|    2003 |       1222 |        9 |  35100 | Salman         |
+|    2004 |       1226 |        2 |  20000 | AAdesh      |
+|    2005 |       1227 |       12 |   2300 | Alpesh         |
+|    2006 |       1229 |       40 | 400000 | saurabh       |
++---------+------------+----------+--------+---------------+
+6 rows in set (0.00 sec)
+
+	7.1.UNION 
+	QUERY :mysql> select product_id from product_details 
+	    -> union
+	    -> select product_id from sales_details;
+	OUTPUT: 
+		+------------+
+		| product_id |
+		+------------+
+		|       1221 |
+		|       1222 |
+		|       1223 |
+		|       1224 |
+		|       1225 |
+		|       1226 |
+		|       1227 |
+		|       1229 |
+		+------------+
+		8 rows in set (0.05 sec)
+
+	7.2.UNION ALL 
+	QUERY : mysql> select product_id from product_details  union all select product_id from sales_details;
+	OUTPUT: 
+		+------------+
+		| product_id |
+		+------------+
+		|       1221 |
+		|       1222 |
+		|       1223 |
+		|       1224 |
+		|       1225 |
+		|       1226 |
+		|       1224 |
+		|       1221 |
+		|       1222 |
+		|       1226 |
+		|       1227 |
+		|       1229 |
+		+------------+
+		12 rows in set (0.00 sec)
+
+	7.3. MINUS 
+	QUERY : mysql> select product_id from product_details where (product_id) not in (select product_id from sales_details);
+	OUTPUT:
+		+------------+
+		| product_id |
+		+------------+
+		|       1223 |
+		|       1225 |
+		+------------+
+		2 rows in set (0.02 sec)
+
+	QUERY : mysql> select distinct product_details.product_id as product_id  from product_details  LEFT OUTER JOIN sales_details using (product_id) where sales_details.product_id is null;
+	OUTPUT:
+		+------------+
+		| product_id |
+		+------------+
+		|       1223 |
+		|       1225 |
+		+------------+
+		2 rows in set (0.00 sec)
+
+	7.4.INTERSECT 
+	QUERY : mysql> select product_id from product_details where (product_id) in (select product_id from sales_details);
+	OUTPUT:	
+		+------------+
+		| product_id |
+		+------------+
+		|       1221 |
+		|       1222 |
+		|       1224 |
+		|       1226 |
+		+------------+
+		4 rows in set (0.00 sec)
